@@ -1,0 +1,189 @@
+## 클래스명
+@@ 파일명: logo_AJJ.js
+- main-header
+- logo
+- accent-text
+- typing-text
+- typing-cursor
+
+@@ 파일명: signUp_AJJ.js
+- form
+- fieldset
+- legend
+- label
+- [id ^= "input"]
+- is-invalid
+- is-valid
+- disallow-massage
+- welcome-msg
+- sumit-btn
+
+@@ 파일명: slide_mainContent_AJJ.js
+- main-slide-container
+- Ahn-slide-container
+- Joo-slide-container
+- Jang-slide-container
+- [class $="-slide-wrap"]
+- ul
+- li
+- [class *="-img"]
+- page-number
+- [class $="-next-btn"]
+- [class $="-prev-btn"]
+- main-timer-wrap
+- timer-wrap
+- main-timer
+- Ahn-timer
+- Joo-timer
+- Jang-timer
+
+@@ 파일명: nav_AJJ.js
+- all-sections
+- [class^="section"]
+- [class$="shop"]
+- search
+- search-rank
+- section1
+- section2
+- section3
+- section4
+- remocon
+- remoconMoveOn
+- top-icon
+- chat-icon
+- chat-bot
+- chat-bot-title
+- chat-delete
+- chat-start
+- chat-box
+- chat-text
+- chat-robot
+- submission
+- chat-other
+- chat-input
+- chat-other-icon
+- svg
+- prev-btn
+- next-btn
+- timer-wrap
+- timer
+
+@@ 병현님
+cart-search-Alignment
+priceSearch
+cart-search-item
+cart-search-item
+cart-search-item
+cart-search-item
+cart-search-item
+cart-search-item
+cart-search-item
+cart-input-search-item
+cart-search-item
+cart-search-text-body
+cart-list-text
+cart-modal
+cart-modal-body
+cart-title
+cart-modal-container
+cart-list
+cart-listRow 
+cart-btn-group
+cart-btn-cart-list
+cart-list
+cart-listRow
+cart-list-sum
+cart-sum-price
+cart-listCol
+cart-container
+cart-pic
+cart-div-text
+cart-pic-bicHover
+cart-body
+cart-name
+cart-text
+btn-container
+cart-btn-group
+cart-btn
+cart-btn
+cart-list-p-text
+cart-search-link
+cart-search-child
+cart-Buy-list
+cart-Buy-list-row
+
+## 병현님 id명
+cartAllList
+cartListAllBuy
+cartListOut
+cartFirstPriceSearch
+cartSecondPriceSearch
+cartSearchBtn
+cartRowSearchPrice
+cartHighSearchPrice
+searchText
+cartSearchTextBtn
+cartListBody
+cartSearchListContainer
+cartMoreShowBtn
+cartListPText
+cartBtnGetList
+cartBtnShowList
+cartBuyDeleteBtn
+cartListPText
+cartSearchLink
+cartSearchChild
+cartCurrentListCount
+cartShowListCount
+cartListCol
+cartContainer
+cartPicture
+cartFirstText
+cartPicHover
+cartBody
+cartName
+cartSecondText
+cartBtnContainer
+cartBtnGroup
+cartBtnGetList
+cartBtnShowList
+cartBuyListRow
+currentBuyListCount
+cartUserListPrice
+cartUserListPriceReal
+cartBuyListCol
+cartBuyContainer
+cartBuyPicture
+cartBuyFirstText
+cartBuyPicHover
+cartBuyBody
+cartBuyName
+cartBuySecondText
+cartBuyBtnContainer
+cartBuyBtnGroup
+cartBuyDeleteBtn
+cartBuyBtnShowList
+cartListPText
+cartUserSearchPriceInfor
+cartSearchText
+cartUserShopInforSearch;
+cartSearchLink
+cartSearchChild
+cartSearchTextArr
+cartSearchTextLast
+cartSearchFirst
+cartListResult
+cartAllList
+cartModal
+cartListOut
+btnCartList
+cartFirstPriceSearch
+cartSecondPriceSearch
+cartMoreShowBtn
+cartListSum
+cartSumPrice
+cartHitList
+cartNewProduct
+cartHitProductList
+
+// 07 08 15 최종 수정

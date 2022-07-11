@@ -2,6 +2,9 @@
 p{
     margin-bottom: 0px;
 }
+button, input, optgroup, select, textarea{
+    border: 1px solid royalblue;
+}
 #cartMoreShowBtn{
 display : flex; 
 width : 10.417vw; 
@@ -71,7 +74,7 @@ margin-left: auto;
 .cart-listRow {
 display: flex;
 flex-wrap: wrap;
-padding-top: 5%;
+padding-top:5%;
 }
 .cart-listCol{
 width: 22%;

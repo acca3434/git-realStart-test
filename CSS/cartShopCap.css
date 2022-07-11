@@ -23,6 +23,13 @@ height : 6.25vw;
 margin: 2.083vw auto auto auto; 
 justify-content : center;
 }
+#cartMoreShowBtnajy{
+display : flex; 
+width : 10.417vw; 
+height : 6.25vw;
+margin: 2.083vw auto auto auto; 
+justify-content : center;
+}
 .cart-modal {
 position: absolute;
 top: 0;

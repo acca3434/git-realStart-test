@@ -13,6 +13,18 @@ let cartShowListCountjbh = 20;
 //장지원 더보기 숫자 카운트
 let cartCurrentListCountjjw = 0;
 let cartShowListCountjjw = 20;
+//안주영 더보기 숫자 카운트
+let cartCurrentListCountajy = 0;
+let cartShowListCountajy = 20;
+
+
+//주병현 숖 홈페이지
+let jbhcartUserShopInfor;
+//장지원 숖 홈페이지
+let jjwcartUserShopInfor;
+//안주영 숖 홈페이지
+let ajycartUserShopInfor;
+
 
 //쇼핑몰 목록 전체 태그 배열
 let cartListCol = new Array();
@@ -88,6 +100,11 @@ let cartAllList = document.getElementById("cartAllList");
   cartMoreShowBtnjjw.id = "cartMoreShowBtnjjw";
   cartMoreShowBtnjjw.setAttribute("type","button");
   cartMoreShowBtnjjw.setAttribute("value","더보기");
+
+  let cartMoreShowBtnajy = document.createElement("input");
+  cartMoreShowBtnajy.id = "cartMoreShowBtnajy";
+  cartMoreShowBtnajy.setAttribute("type","button");
+  cartMoreShowBtnajy.setAttribute("value","더보기");
 
   //유저의 총 합계금액 구하기 위해 필요한 태그 생성
   let cartListSum = document.createElement("div");
@@ -288,12 +305,49 @@ if(cartShowListCountjjw==cartListCol.length){
   }
 })
 
+//속성과 값을 가진 태그들을 쏴주는거
+function cartListAppendAjy(ajycartUserShopInfor) {
+  while (cartCurrentListCountajy < cartListCol.length) {
+    let cartListIndex = cartCurrentListCountajy;
+     document.getElementById("ajy-search-list-container").appendChild(cartListCol[cartListIndex]);
+     cartListCol[cartListIndex].appendChild(cartContainer[cartListIndex]);
+     cartContainer[cartListIndex].appendChild(cartPicture[cartListIndex]);
+     cartPicture[cartListIndex].appendChild(cartFirstText[cartListIndex]);
+     cartFirstText[cartListIndex].appendChild(cartPicHover[cartListIndex]);
+     cartPicture[cartListIndex].after(cartBody[cartListIndex]);
+     cartBody[cartListIndex].appendChild(cartName[cartListIndex]);
+     cartName[cartListIndex].after(cartSecondText[cartListIndex]);
+     cartSecondText[cartListIndex].after(cartBtnContainer[cartListIndex]);
+     cartBtnContainer[cartListIndex].appendChild(cartBtnGroup[cartListIndex]);
+     cartBtnGroup[cartListIndex].appendChild(cartBtnGetList[cartListIndex]);
+     cartBtnGetList[cartListIndex].after(cartBtnShowList[cartListIndex]);
+     cartCurrentListCountajy++
+     if(cartCurrentListCountajy==cartShowListCountajy){
+      document.getElementById("ajy-search-list-container").after(cartMoreShowBtnajy);
+        break;
+     }
+     else if(cartListCol[cartListIndex]==null){
+      break;
+   }
+  }
+}
+//초기 상품목록 더보기 버튼을 눌렀을때
+cartMoreShowBtnajy.addEventListener("click",function(){
+  cartShowListCountajy += 20;
+  cartListAppendAjy();
+  //80개가 다 됐을때 더보기 버튼 삭제
+if(cartShowListCountajy==cartListCol.length){
+  cartMoreShowBtnajy.remove();
+  }
+})
+
   //장바구니 버튼을 눌렀을때
   btnCartList.addEventListener("click",function() {
   cartAllList.style.display = "none";
   btnCartList.style.display = "none";
   cartModal.style.display = 'block';
   document.getElementById("jjw-search-list-container").style.display = "none";
+  document.getElementById("ajy-search-list-container").style.display = "none";
   cartUserListPriceReal = cartUserListPrice.filter(a => a > 0).reduce((a, b) => a + b, 0)
   //장바구니 총 합계금액
   cartSumPrice.innerHTML = "총 합계금액"+cartUserListPriceReal;
@@ -338,6 +392,7 @@ cartListOut.addEventListener("click", function () {
   cartModal.style.display = 'none';
   btnCartList.style.display = "block" 
   document.getElementById("jjw-search-list-container").style.display = "block";
+  document.getElementById("ajy-search-list-container").style.display = "block";
   })
 
 
@@ -347,6 +402,8 @@ document.getElementById("cartSearchBtn").addEventListener("click",function(){
   cartShowListCountjbh = 20;
   cartCurrentListCountjjw = 0;
   cartShowListCountjjw = 20;
+  cartCurrentListCountajy = 0;
+  cartShowListCountajy = 20;
 
   while (document.getElementById("cartSearchListContainer").hasChildNodes()) {
     document.getElementById("cartSearchListContainer").removeChild(document.getElementById("cartSearchListContainer").firstChild);
@@ -395,6 +452,30 @@ document.getElementById("cartSearchBtn").addEventListener("click",function(){
       cartListAppendJjw(cartUserSearchPriceInfor);
   })
   cartUserSearchPriceInfor = 0;
+
+
+  shopCap().then((cartUserShopInfor)=>{
+
+    ajycartUserShopInfor =  cartUserShopInfor.filter((a)=>{
+      return a.designName == "ajy"
+    })
+    while (document.getElementById("ajy-search-list-container").hasChildNodes()) {
+      document.getElementById("ajy-search-list-container").removeChild(document.getElementById("ajy-search-list-container").firstChild);
+    }
+    
+      cartFirstPriceSearch = document.getElementById("cartFirstPriceSearch").value;
+      cartSecondPriceSearch = document.getElementById("cartSecondPriceSearch").value;
+  
+      cartUserSearchPriceInfor = ajycartUserShopInfor.filter(function(data){
+        return cartFirstPriceSearch <= data.price && cartSecondPriceSearch >= data.price
+      })
+      cartUserSearchPriceInfor.sort((a,b)=>{
+        return a.price - b.price;
+      })
+        cartInput(cartUserSearchPriceInfor);
+        cartListAppendAjy(cartUserSearchPriceInfor);
+    })
+    cartUserSearchPriceInfor = 0;
 })
 
 
@@ -405,6 +486,8 @@ document.getElementById("cartRowSearchPrice").addEventListener("click",function(
   cartShowListCountjbh = 20;
   cartCurrentListCountjjw = 0;
   cartShowListCountjjw = 20;
+  cartCurrentListCountajy = 0;
+  cartShowListCountajy = 20;
   while (document.getElementById("cartSearchListContainer").hasChildNodes()) {
     document.getElementById("cartSearchListContainer").removeChild(document.getElementById("cartSearchListContainer").firstChild);
   }
@@ -427,15 +510,31 @@ document.getElementById("cartRowSearchPrice").addEventListener("click",function(
   }
     shopCap().then((cartUserShopInfor)=>{
 
-      jbhcartUserShopInfor =  cartUserShopInfor.filter((a)=>{
+      jjwcartUserShopInfor =  cartUserShopInfor.filter((a)=>{
         return a.designName == "jjw"
       })
   
-      jbhcartUserShopInfor.sort(function(a, b){
+      jjwcartUserShopInfor.sort(function(a, b){
         return a.price - b.price;
       });
-      cartInput(jbhcartUserShopInfor)
-      cartListAppendJjw(jbhcartUserShopInfor)
+      cartInput(jjwcartUserShopInfor)
+      cartListAppendJjw(jjwcartUserShopInfor)
+  })
+
+  while (document.getElementById("ajy-search-list-container").hasChildNodes()) {
+    document.getElementById("ajy-search-list-container").removeChild(document.getElementById("ajy-search-list-container").firstChild);
+  }
+    shopCap().then((cartUserShopInfor)=>{
+
+      ajycartUserShopInfor =  cartUserShopInfor.filter((a)=>{
+        return a.designName == "ajy"
+      })
+  
+      ajycartUserShopInfor.sort(function(a, b){
+        return a.price - b.price;
+      });
+      cartInput(ajycartUserShopInfor)
+      cartListAppendAjy(ajycartUserShopInfor)
   })
 })
 
@@ -446,7 +545,8 @@ document.getElementById("cartHighSearchPrice").addEventListener("click",function
   cartShowListCountjbh = 20;
   cartCurrentListCountjjw = 0;
   cartShowListCountjjw = 20;
-
+  cartCurrentListCountajy = 0;
+  cartShowListCountajy = 20;
   while (document.getElementById("jjw-search-list-container").hasChildNodes()) {
     document.getElementById("jjw-search-list-container").removeChild(document.getElementById("jjw-search-list-container").firstChild);
   }
@@ -478,10 +578,22 @@ document.getElementById("cartHighSearchPrice").addEventListener("click",function
       cartInput(jbhcartUserShopInfor)
       cartListAppendJjw(jbhcartUserShopInfor)
   })
+  while (document.getElementById("ajy-search-list-container").hasChildNodes()) {
+    document.getElementById("ajy-search-list-container").removeChild(document.getElementById("ajy-search-list-container").firstChild);
+  }
+    shopCap().then((cartUserShopInfor)=>{
+
+      ajycartUserShopInfor =  cartUserShopInfor.filter((a)=>{
+        return a.designName == "ajy"
+      })
+
+      ajycartUserShopInfor.sort(function(a, b){
+        return b.price - a.price;
+      });
+      cartInput(ajycartUserShopInfor)
+      cartListAppendAjy(ajycartUserShopInfor)
+  })
 })
-
-
-
 
 //상품검색을 위한 태그 쏴주기
 document.getElementById("cartSearchTextBtn").addEventListener("click",function(){
@@ -489,6 +601,8 @@ document.getElementById("cartSearchTextBtn").addEventListener("click",function()
   cartShowListCountjbh = 20;
   cartCurrentListCountjjw = 0;
   cartShowListCountjjw = 20;
+  cartCurrentListCountajy = 0;
+  cartShowListCountajy = 20;
     cartSearchText = document.getElementById("cartSearchText").value;
     cartSearchTextArr.push(document.getElementById("cartSearchText").value);
     cartSearchTextLast.unshift(cartSearchTextArr[cartSearchTextArr.length - 1]);
@@ -568,6 +682,43 @@ while (document.getElementById("jjw-search-list-container").hasChildNodes()) {
   })
   cartUserShopInforSearch=0;
 
+  while (document.getElementById("ajy-search-list-container").hasChildNodes()) {
+    document.getElementById("ajy-search-list-container").removeChild(document.getElementById("ajy-search-list-container").firstChild);
+  }
+  
+    shopCap().then((cartUserShopInfor)=>{
+  
+      ajycartUserShopInfor =  cartUserShopInfor.filter((a)=>{
+        return a.designName == "ajy"
+      })
+    
+        if(cartSearchText=="바지" || cartSearchText=="팬츠" || cartSearchText=="바지" || cartSearchText=="pants"){
+          cartSearchText = "pants";
+        }
+        else if(cartSearchText=="레깅스" || cartSearchText=="leggings"){
+          cartSearchText = "leggings";
+        }
+        else if(cartSearchText=="신발" || cartSearchText=="슈즈" || cartSearchText=="shoes"){
+          cartSearchText = "shoes";
+        }
+        else if(cartSearchText=="세트" || cartSearchText=="set"){
+          cartSearchText = "set";
+        }
+        else if(cartSearchText=="가방" || cartSearchText=="샤넬" || cartSearchText=="샤넬백" ||cartSearchText=="백" || cartSearchText=="bag"){
+          cartSearchText = "bag";
+        }
+        else if(cartSearchText==""){
+          cartInput(ajycartUserShopInfor);
+          cartListAppendAjy(ajycartUserShopInfor);
+          cartSearchText = alert("검색어를 입력해주세요!");
+        }
+        cartUserShopInforSearch = ajycartUserShopInfor.filter(function(data) {
+          return data.classification===cartSearchText;
+        });
+        cartInput(cartUserShopInforSearch);
+        cartListAppendAjy(cartUserShopInforSearch);
+    })
+    cartUserShopInforSearch=0;
   while (document.querySelector(".cart-search-text-body").hasChildNodes()) {
   document.querySelector(".cart-search-text-body").removeChild(document.querySelector(".cart-search-text-body").firstChild);
   }
@@ -596,13 +747,12 @@ document.getElementById("cartSearchText").addEventListener("click",function(){
   cartSearchFirst = 0;
 })
 
-
-//다른 공간을 눌렀을때 최근 검색어가 사라지게
-document.getElementById("cartAllList").addEventListener("click",function(){
+document.getElementById("cartSearchText").addEventListener("focusout",function(){
   while (document.querySelector(".cart-search-text-body").hasChildNodes()) {
     document.querySelector(".cart-search-text-body").removeChild(document.querySelector(".cart-search-text-body").firstChild);
   }
 })
+
 
 //새상품순에 담을 json배열
 //새상품순을 눌렀을때
@@ -612,7 +762,8 @@ document.getElementById("cartNewProduct").addEventListener("click",function(){
   cartShowListCountjbh = 20;
   cartCurrentListCountjjw = 0;
   cartShowListCountjjw = 20;
-
+  cartCurrentListCountajy = 0;
+  cartShowListCountajy = 20;
   while (document.getElementById("cartSearchListContainer").hasChildNodes()) {
     document.getElementById("cartSearchListContainer").removeChild(document.getElementById("cartSearchListContainer").firstChild);
   }
@@ -642,12 +793,25 @@ while (document.getElementById("jjw-search-list-container").hasChildNodes()) {
     cartListAppendJjw(cartNewProductInfor);
   })  
   cartNewProductInfor=0;
+
+  while (document.getElementById("ajy-search-list-container").hasChildNodes()) {
+    document.getElementById("ajy-search-list-container").removeChild(document.getElementById("ajy-search-list-container").firstChild);
+  }
+    shopCap().then((cartUserShopInfor)=>{
+      ajycartUserShopInfor =  cartUserShopInfor.filter((a)=>{
+        return a.designName == "ajy"
+      })
+      cartNewProductInfor = ajycartUserShopInfor.sort((a,b)=>{
+        return b.index - a.index;
+      })
+      cartInput(cartNewProductInfor);
+      cartListAppendAjy(cartNewProductInfor);
+    })  
+    cartNewProductInfor=0;
 })
 
-//주병현 숖 홈페이지
-let jbhcartUserShopInfor;
-//장지원 숖 홈페이지
-let jjwcartUserShopInfor;
+
+
 
 shopCap().then((cartUserShopInfor)=>{
 
@@ -669,4 +833,16 @@ shopCap().then((cartUserShopInfor)=>{
   cartListAppendJjw(jjwcartUserShopInfor);
 
   cartUserShopInfor=0;
+})
+
+shopCap().then((cartUserShopInfor)=>{
+
+  ajycartUserShopInfor =  cartUserShopInfor.filter((a)=>{
+    return a.designName == "ajy"
+  })
+  cartInput(ajycartUserShopInfor);
+  cartListAppendAjy(ajycartUserShopInfor);
+
+  cartUserShopInfor=0;
+
 })
